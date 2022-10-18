@@ -8,8 +8,7 @@ body.append(newSection)
 newSection.append(newElement)
 newElement.addEventListener('click', () => {
   const p = document.createElement('p')
-  p.textContent = 'Hello World'
-  newSection.append(p)
+  
 })
 
 const sum = sumAlert(1,4)
@@ -43,3 +42,5 @@ const Fn = x => {
 alert(F(5))
 
 // ƒ(n) => 2x
+
+
