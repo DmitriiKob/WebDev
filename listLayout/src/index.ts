@@ -16,9 +16,9 @@ let customers: Customers[] = [
         extra_info: 'Chineese'
     }
 ]
-
 const render = (customers: Customers[]):void => {
     const table = document.querySelector('table tbody')
+    table.innerHTML = ''
     customers.forEach(user => {
         const tr = document.createElement('tr')
         for (const key in user) {
@@ -27,6 +27,11 @@ const render = (customers: Customers[]):void => {
             td.innerHTML = user[key]
             tr.append(td)
         }
+        const checkbox = document.createElement('input')
+        checkbox.setAttribute('type' , 'checkbox')
+        const td = document.createElement('td')
+        td.append(checkbox)
+        tr.append(td)
         table.append(tr)
     })
 }
@@ -35,7 +40,9 @@ render(customers)
 const handleAddCustomer = (event:SubmitEvent) => {
     event.preventDefault()
     let new_id:number = customers.length + 1
-    const newCustomer = {}
+    const newCustomer = {
+        id: new_id
+    }
     for (let i = 0; i < 4; i++) {
         //@ts-ignore
         newCustomer[event.target[i].name] = event.target[i].value
@@ -48,3 +55,22 @@ const handleAddCustomer = (event:SubmitEvent) => {
 const form = document.getElementById('input_form')
 
 form.addEventListener('submit', handleAddCustomer)
+
+const sort = (field: 'id' | 'name' | 'surname' | 'general_info' | 'extra_info') => {
+    console.log(field)
+    customers.sort((a:Customers, b:Customers) =>{
+        if(a[field] > b[field]){
+            return -1
+        }else if(a[field] < b[field]){
+            return 1
+        }else{
+            return 0
+        }
+    })
+    render(customers)
+}
+
+const thGroup = document.querySelectorAll('th')
+//@ts-ignore
+thGroup.forEach(th => th.addEventListener('click', (event) => sort(event.target.getAttribute("name"))))
+
