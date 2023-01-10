@@ -7,6 +7,9 @@ interface Customers {
     extra_info: string
 }
 
+type checkIt = number[]
+let checkItItems: checkIt = []
+
 let customers: Customers[] = [
     {
         id: 2,
@@ -16,6 +19,17 @@ let customers: Customers[] = [
         extra_info: 'Chineese'
     }
 ]
+const checkField = (event: any) => {
+    const isChecked = event.target.checked
+    console.log(event)
+    if(isChecked){
+        checkItItems.push(event.target.dataset.id)
+    }else{
+        checkItItems = checkItItems.filter(f => f !== event.target.dataset.id)
+    }
+    
+    console.log(checkItItems)
+}
 const render = (customers: Customers[]):void => {
     const table = document.querySelector('table tbody')
     table.innerHTML = ''
@@ -29,6 +43,8 @@ const render = (customers: Customers[]):void => {
         }
         const checkbox = document.createElement('input')
         checkbox.setAttribute('type' , 'checkbox')
+        checkbox.setAttribute('data-id', String(user.id))
+        checkbox.addEventListener('change', checkField)
         const td = document.createElement('td')
         td.append(checkbox)
         tr.append(td)
@@ -73,4 +89,6 @@ const sort = (field: 'id' | 'name' | 'surname' | 'general_info' | 'extra_info') 
 const thGroup = document.querySelectorAll('th')
 //@ts-ignore
 thGroup.forEach(th => th.addEventListener('click', (event) => sort(event.target.getAttribute("name"))))
+
+
 
