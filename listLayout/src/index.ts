@@ -12,7 +12,7 @@ let checkItItems: checkIt = []
 
 let customers: Customers[] = [
     {
-        id: 2,
+        id: 1,
         name: 'Ivan',
         surname: 'Ivanov',
         general_info: 'Developer',
@@ -51,7 +51,38 @@ const render = (customers: Customers[]):void => {
         table.append(tr)
     })
 }
+const renderEditFields = (customers: Customers[]):void => {
+    const table = document.querySelector('table tbody')
+    table.innerHTML = ''
+    customers.forEach(user => {
+        const tr = document.createElement('tr')
+        for (const key in user) {
+            const td = document.createElement('td')
+            console.log(checkItItems, user.id)
+            //@ts-ignore
+            if(checkItItems.includes(String(user.id)) && key !== 'id'){
+                const input = document.createElement('input')
+                //@ts-ignore
+                input.value = user[key]
+                td.append(input)
+            }else{
+                 // @ts-ignore
+                td.innerHTML = user[key]
+            }
+           
+            tr.append(td)
 
+        }
+        const checkbox = document.createElement('input')
+        checkbox.setAttribute('type' , 'checkbox')
+        checkbox.setAttribute('data-id', String(user.id))
+        checkbox.addEventListener('change', checkField)
+        const td = document.createElement('td')
+        td.append(checkbox)
+        tr.append(td)
+        table.append(tr)
+    })
+}
 render(customers)
 const handleAddCustomer = (event:SubmitEvent) => {
     event.preventDefault()
@@ -89,6 +120,17 @@ const sort = (field: 'id' | 'name' | 'surname' | 'general_info' | 'extra_info') 
 const thGroup = document.querySelectorAll('th')
 //@ts-ignore
 thGroup.forEach(th => th.addEventListener('click', (event) => sort(event.target.getAttribute("name"))))
+const editButton = document.querySelector('#editButton')
+const handleSaveEdit = (event:any) =>{
+    event.target.innerHTML = 'Edit'
+    editButton.removeEventListener('click', handleSaveEdit)
+    editButton.addEventListener('click', handleEditRequest)
+}
+const handleEditRequest = (event:any) =>{
+    renderEditFields(customers)
+    event.target.innerHTML = 'ok'
+    editButton.removeEventListener('click', handleEditRequest)
+    editButton.addEventListener('click', handleSaveEdit)
+}
 
-
-
+editButton.addEventListener('click', handleEditRequest)
