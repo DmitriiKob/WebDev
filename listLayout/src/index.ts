@@ -10,15 +10,7 @@ interface Customers {
 type checkIt = number[]
 let checkItItems: checkIt = []
 
-let customers: Customers[] = [
-    {
-        id: 1,
-        name: 'Ivan',
-        surname: 'Ivanov',
-        general_info: 'Developer',
-        extra_info: 'Chineese'
-    }
-]
+let customers: Customers[] = JSON.parse(localStorage.getItem('customers') || '[]')
 const checkField = (event: any) => {
     const isChecked = event.target.checked
     console.log(event)
@@ -49,6 +41,17 @@ const render = (customers: Customers[]):void => {
         td.append(checkbox)
         tr.append(td)
         table.append(tr)
+        localStorage.setItem('customers', JSON.stringify(customers))
+    })
+}
+const handleInputField = (event: any, id: number, fieldName:string) =>{
+    customers = customers.map((item:Customers)=>{
+        if(item.id === id){
+            //@ts-ignore
+            item[fieldName] = event.target.value
+            return item
+        }
+        return item
     })
 }
 const renderEditFields = (customers: Customers[]):void => {
@@ -64,6 +67,7 @@ const renderEditFields = (customers: Customers[]):void => {
                 const input = document.createElement('input')
                 //@ts-ignore
                 input.value = user[key]
+                input.addEventListener('input', (event) => handleInputField(event, user.id ,key))
                 td.append(input)
             }else{
                  // @ts-ignore
@@ -125,6 +129,7 @@ const handleSaveEdit = (event:any) =>{
     event.target.innerHTML = 'Edit'
     editButton.removeEventListener('click', handleSaveEdit)
     editButton.addEventListener('click', handleEditRequest)
+    render(customers)
 }
 const handleEditRequest = (event:any) =>{
     renderEditFields(customers)
