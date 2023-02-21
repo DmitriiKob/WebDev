@@ -7,6 +7,7 @@ import TextArea from './TextArea'
 import {useState, useEffect} from 'react'
 import Form from './Form';
 import Radio from './Radio';
+import Dropdown from './Dropdown';
 function App() {
   const [text, setText] = useState('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro est fugit corporis laborum eos quos! Vel, voluptas error laborum iure aliquam quae, ratione, alias optio accusantium eum sint corporis porro?')
   console.log(1)
@@ -20,6 +21,7 @@ function App() {
        <Form />
        <Radio />
        <input type={'text'} onChange={event=>setText(event.target.value)} />
+       <Dropdown/>
       </header>
     {console.log(2)}
     </div>

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useEffect } from 'react'
 
 const toggle = (array, value) => {
   if(array.includes(value)){
@@ -13,7 +14,19 @@ const Radio = (props) => {
   const change = (event) => {
     setSelectedOption(toggle(selectedOption,event.target.value))
   }
+  // const error = (event) => {
+  //   if(selectedOption.length === 3 || selectedOption.includes(event.target.value)){
+  //     alert('error')
+  //   }
+  // }
 
+  useEffect(() => {
+    if (selectedOption.length === 3) {
+      alert('error')
+    }
+    console.log(selectedOption)
+}, [selectedOption.length])
+  
   return (
     <div>
       <label>
@@ -35,7 +48,7 @@ const Radio = (props) => {
       {selectedOption.includes('option2') && <p>This is Option 2</p>}
       {selectedOption.includes('option3') && <p>This is Option 3</p>}
       
-
+    
     </div>
   )
 }

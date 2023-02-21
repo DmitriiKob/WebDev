@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "module": "ESNext",
+      "outDir": "./dist/",
+      "target": "ES6",
+      "jsx": "react",
+      "noImplicitAny": true,
+      "moduleResolution": "Node16",
+      "allowSyntheticDefaultImports": true,
+      "esModuleInterop" : true,
+      "allowJs": true,
+      "sourceMap": true,
+    },
+    "exclude": [
+      "node_modules"
+    ]
+  }
