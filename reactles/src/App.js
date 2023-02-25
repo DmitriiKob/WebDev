@@ -8,6 +8,8 @@ import {useState, useEffect} from 'react'
 import Form from './Form';
 import Radio from './Radio';
 import Dropdown from './Dropdown';
+import ArrayInput from './ArrayInput';
+import Awesomeinput from './AwesomeInput';
 function App() {
   const [text, setText] = useState('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro est fugit corporis laborum eos quos! Vel, voluptas error laborum iure aliquam quae, ratione, alias optio accusantium eum sint corporis porro?')
   console.log(1)
@@ -18,10 +20,12 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-       <Form />
+       {/* <Form />
        <Radio />
        <input type={'text'} onChange={event=>setText(event.target.value)} />
-       <Dropdown/>
+       <Dropdown/> */}
+       {/* <ArrayInput/> */}
+       <Awesomeinput/>
       </header>
     {console.log(2)}
     </div>

@@ -1,4 +1,4 @@
-import { useState, useEffect, Children } from 'react'
+import { useState, useEffect } from 'react'
 
 const DropdownContent = (props) =>{
     
@@ -19,7 +19,7 @@ const Dropdown = () =>{
         <div>
             <button onClick={()=>setIsOpenEffect(!isOpen)}>click</button>
             {/* {isOpen?<DropdownContent><span>Hello</span></DropdownContent> : ''} */}
-            {isOpen&&<DropdownContent callBack={setIsOpen} ><span>Hello</span></DropdownContent>}
+            {isOpen&&<DropdownContent callBack={setIsOpen}><span>Hello</span></DropdownContent>}
 
         </div>
     )
