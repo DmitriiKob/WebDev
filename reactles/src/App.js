@@ -11,6 +11,10 @@ import Dropdown from './Dropdown';
 import ArrayInput from './ArrayInput';
 import Awesomeinput from './AwesomeInput';
 import DnD from './DnD';
+import Counter from './Counter';
+import Pointer from './Pointer';
+// import InputWord from './InputWord';
+import FormFocus from './FormFocus';
 function App() {
   const [text, setText] = useState('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro est fugit corporis laborum eos quos! Vel, voluptas error laborum iure aliquam quae, ratione, alias optio accusantium eum sint corporis porro?')
   console.log(1)
@@ -27,7 +31,12 @@ function App() {
        <Dropdown/> */}
        {/* <ArrayInput/>
        <Awesomeinput/> */}
-       <DnD />
+       {/* <DnD /> */}
+      {/* <Input defoultValue="" extraValue=""/> */}
+      {/* <Counter /> */}
+      {/* <Pointer /> */}
+      {/* <InputWord /> */}
+      <FormFocus/>
       </header>
     {console.log(2)}
     </div>
