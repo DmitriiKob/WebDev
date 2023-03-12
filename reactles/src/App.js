@@ -15,6 +15,8 @@ import Counter from './Counter';
 import Pointer from './Pointer';
 // import InputWord from './InputWord';
 import FormFocus from './FormFocus';
+import TimeClick from './TImeClick';
+import FormGenerator from './FormGenerator';
 function App() {
   const [text, setText] = useState('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro est fugit corporis laborum eos quos! Vel, voluptas error laborum iure aliquam quae, ratione, alias optio accusantium eum sint corporis porro?')
   console.log(1)
@@ -36,7 +38,9 @@ function App() {
       {/* <Counter /> */}
       {/* <Pointer /> */}
       {/* <InputWord /> */}
-      <FormFocus/>
+      {/* <FormFocus/> */}
+      {/* <TimeClick /> */}
+      <FormGenerator/>
       </header>
     {console.log(2)}
     </div>
