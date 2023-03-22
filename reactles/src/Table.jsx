@@ -1,5 +1,5 @@
 import "./Table.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const validate = (values) => {
     const errors = {}
@@ -24,20 +24,27 @@ const validate = (values) => {
 const Table = () => {
   const [tableList, setTableList] = useState([]);
   const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({})
   const [formData, setFormData] = useState({
     name: "",
     surname: "",
     gi: "",
     ei: "",
   });
+  
+  console.log(touched)
+  const focusOff = (inputName) => () => {
+    setTouched((prev) => ({...prev, [inputName]:true }))
+    const e = validate(formData)
+      console.log(e)
+      if(JSON.stringify(e) !== "{}"){
+          setErrors(e)
+          return
+      }
+  }
   const submit = (event) => {
     event.preventDefault()
-    const e = validate(formData)
-    console.log(e)
-    if(JSON.stringify(e) !== "{}"){
-        setErrors(e)
-        return
-    }
+    
     setTableList((prev) => [...prev, {...formData, id:prev.length + 1}])
     setFormData({
         name: "",
@@ -51,14 +58,22 @@ const Table = () => {
       <div className="list">List of something</div>
       <div className="form_container">
         <form id="input_form" onSubmit={submit}>
-            {errors.name}
-        <input className="input_btns" value={formData.name} onChange={(event)=>setFormData((prev)=>({...prev, name:event.target.value}))}/>
-            {errors.surname}
-          <input className="input_btns" value={formData.surname} onChange={(event)=>setFormData((prev)=>({...prev, surname:event.target.value}))}/>
-            {errors.gi}
-          <input className="input_btns" value={formData.gi} onChange={(event)=>setFormData((prev)=>({...prev, gi:event.target.value}))}/>
-            {errors.ei}
-          <input className="input_btns" value={formData.ei} onChange={(event)=>setFormData((prev)=>({...prev, ei:event.target.value}))}/>
+          <label htmlFor="">
+            {touched.name ? errors.name: ''}
+        <input className="input_btns"  value={formData.name} onBlur={focusOff('name')} onChange={(event)=>setFormData((prev)=>({...prev, name:event.target.value}))}/>
+        </label>
+        <label htmlFor="">
+            {touched.surname ? errors.surname: ''}
+          <input className="input_btns"  value={formData.surname} onBlur={focusOff('surname')} onChange={(event)=>setFormData((prev)=>({...prev, surname:event.target.value}))}/>
+          </label>
+          <label htmlFor="">
+            {touched.gi ? errors.gi: ''}
+          <input className="input_btns" value={formData.gi} onBlur={focusOff('gi')} onChange={(event)=>setFormData((prev)=>({...prev, gi:event.target.value}))}/>
+          </label>
+          <label htmlFor="">
+            {touched.ei ? errors.ei:''}
+          <input className="input_btns"  value={formData.ei} onBlur={focusOff('ei')} onChange={(event)=>setFormData((prev)=>({...prev, ei:event.target.value}))}/>
+          </label>
           <input className="add" type="submit" value="Add" />
         </form>
       </div>
