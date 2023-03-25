@@ -1,5 +1,6 @@
-import "./Table.scss";
-import { useState, useEffect } from "react";
+import "./Table.scss"
+import { useState, useEffect } from "react"
+import useLocalState from "./useLocalState"
 
 const validate = (values) => {
     const errors = {}
@@ -22,25 +23,31 @@ const validate = (values) => {
 }
 
 const Table = () => {
-  const [tableList, setTableList] = useState([]);
-  const [errors, setErrors] = useState({});
+  const [tableList, setTableList] = useLocalState([], 'Table')
+  const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
-  const [formData, setFormData] = useState({
+  const [checkList, setCheckList] = useState([])
+  const [formData, setFormData] = useLocalState({
     name: "",
     surname: "",
     gi: "",
     ei: "",
-  });
+  }, 'Form')
+  const handleDelete = () => {
+    checkList.forEach(id => {
+      setTableList((prev) => prev.filter((item) => item.id !== id))
+      setCheckList(prev =>  prev.filter(f=>f !== id))
+    })
+  }
   
-  console.log(touched)
+  
+
   const focusOff = (inputName) => () => {
     setTouched((prev) => ({...prev, [inputName]:true }))
     const e = validate(formData)
       console.log(e)
-      if(JSON.stringify(e) !== "{}"){
-          setErrors(e)
-          return
-      }
+      setErrors(e)
+      return
   }
   const submit = (event) => {
     event.preventDefault()
@@ -52,6 +59,7 @@ const Table = () => {
         gi: "",
         ei: "",
   })
+  setTouched({})
 }
   return (
     <div>
@@ -71,7 +79,7 @@ const Table = () => {
           <input className="input_btns" value={formData.gi} onBlur={focusOff('gi')} onChange={(event)=>setFormData((prev)=>({...prev, gi:event.target.value}))}/>
           </label>
           <label htmlFor="">
-            {touched.ei ? errors.ei:''}
+            {touched.ei ? errors.ei: ''}
           <input className="input_btns"  value={formData.ei} onBlur={focusOff('ei')} onChange={(event)=>setFormData((prev)=>({...prev, ei:event.target.value}))}/>
           </label>
           <input className="add" type="submit" value="Add" />
@@ -97,7 +105,13 @@ const Table = () => {
               <td>{item.gi}</td>
               <td>{item.ei}</td>
               <td>
-                <input type="checkbox" />
+              <input type="checkbox" onChange={()=>setCheckList(prev=>{
+                if(prev.includes(item.id)){
+                  return prev.filter(f=>f !== item.id)
+                } else {
+                  return [...prev, item.id]
+                }
+              })}/>
               </td>
             </tr>
           ))}
@@ -106,10 +120,10 @@ const Table = () => {
       <div className="return_btns">
         <button>Edit</button>
         <button>Search</button>
-        <button>Delete</button>
+        <button onClick={()=>handleDelete()}>Delete</button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Table;
+export default Table
