@@ -17,6 +17,7 @@ import Pointer from './Pointer';
 import FormFocus from './FormFocus';
 import TimeClick from './TImeClick';
 import FormGenerator from './FormGenerator';
+import List from './list';
 import Table from './Table';
 function App() {
   const [text, setText] = useState('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro est fugit corporis laborum eos quos! Vel, voluptas error laborum iure aliquam quae, ratione, alias optio accusantium eum sint corporis porro?')
@@ -42,7 +43,8 @@ function App() {
       {/* <FormFocus/> */}
       {/* <TimeClick /> */}
       {/* <FormGenerator/> */}
-      <Table />
+      {/* <Table /> */}
+      <List />
       </header>
     {console.log(2)}
     </div>
